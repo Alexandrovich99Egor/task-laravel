@@ -1,0 +1,63 @@
+.form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+
+    &__title {
+        text-align: center;
+        color: #2d3748;
+        margin-bottom: 30px;
+    }
+
+    &__content {
+        display: flex;
+    }
+
+    &__request {
+        background-color: rebeccapurple;
+        width: 400px;
+        height: 400px;
+        padding: 50px;
+
+        h2 {
+            color: #1a202c;
+            text-align: center;
+        }
+    }
+
+    &__response {
+        background-color: #1a202c;
+        width: 400px;
+        height: 400px;
+        padding: 50px;
+
+        h2 {
+            color: rebeccapurple;
+            text-align: center;
+        }
+    }
+
+    &__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 25px;
+    }
+
+    &__status {
+        text-align: center;
+        font-size: 24px;
+        margin-top: 50px;
+
+        &.green {
+            color: green;
+        }
+
+        &.red {
+            color: red;
+        }
+    }
+
+}
