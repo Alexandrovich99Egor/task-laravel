@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\v1\SubmitApiController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\SubmitApiController;
 
 //Route::get('/user', function (Request $request) {
 //    return $request->user();

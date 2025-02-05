@@ -11,8 +11,8 @@ export default function Form() {
     const [responseState, setResponse] = useState('Nothing');
     const TESTINGDATA = {
         name: 'Egor TEST',
-        email: 'alex@mail.ua',
-        message: 'Reactik',
+        email: 'bbff@mail.ua',
+        message: 'test',
     }
     const ruquest = async () => {
         try {
@@ -25,10 +25,17 @@ export default function Form() {
             setResponse({
                 status: response.status,
                 colorStatus: response.status === 200 || 201 ? 'green' : 'red',
-                data: response?.data?.data?.id,
+                id: response?.data?.data?.id,
+                message: response?.data?.data?.message,
+                email: response?.data?.data?.email,
+                name: response?.data?.data?.name,
             });
         } catch (err) {
-            console.log(err)
+            setResponse({
+                message: err.response.data.message,
+                status: err.response.status,
+                colorStatus: 'red',
+            })
         }
 
     }
@@ -54,8 +61,22 @@ export default function Form() {
                         Response status here
                     </h2>
                     <div className={`form__status ${responseState.colorStatus}`}>
-                        {responseState.status}
-                        {responseState.data}
+                        <p>
+                            status : {responseState.status}
+                        </p>
+                        <p>
+                            id: {responseState.id}
+                        </p>
+                        <p>
+                            message: {responseState.message}
+                        </p>
+                        <p>
+                            email: {responseState.email}
+                        </p>
+                        <p>
+                            name: {responseState.name}
+                        </p>
+
                     </div>
                 </div>
             </div>

@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\v1;
 
+use App\Events\SubmissionEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Submission;
 use Illuminate\Http\Request;
+use App\Jobs\ProcessSubmission;
 
 
 class SubmitApiController extends Controller
@@ -37,11 +39,14 @@ class SubmitApiController extends Controller
             'message' => 'required|string',
         ]);
 
-        $submission = Submission::create($validatedData);
+
+        ProcessSubmission::dispatch($validatedData);
+
+        event(new SubmissionEvent($validatedData));
 
         return response()->json([
             'message' => 'Your submission has been received.',
-            'data' => $submission
+            'data' => $validatedData,
         ], 201);
 
     }
