@@ -10,7 +10,7 @@ export default function Form() {
     const apiUrl = 'http://127.0.0.1:8000/api/v1/submits';
     const [responseState, setResponse] = useState('Nothing');
     const TESTINGDATA = {
-        name: 'Egor TEST',
+        name: 'Egor TEST1111111111111111',
         email: 'bbff@mail.ua',
         message: 'test',
     }
