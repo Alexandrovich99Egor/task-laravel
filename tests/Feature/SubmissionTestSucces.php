@@ -1,16 +1,23 @@
 <?php
 
-$urlApi = 'http://127.0.0.1:8000/api/v1/submits';
 
-test('POST /api/submissions fails with invalid data field', function () use ($urlApi) {
+//Тут получается саксес случай
+
+test('POST /api/v1/submits succeeds with valid data', function () {
+
+    $urlApi = route('submits.store');
+
     $data = [
         'name' => 'Egor',
         'email' => 'alex@mail.ua',
-        'message' => '111111111TESTING',
+        'message' => 'message',
     ];
 
     $response = $this->postJson($urlApi, $data);
 
-    $response->assertStatus(201);
-    $response->assertJsonValidationErrors(['name', 'email', 'message']);
+    $response->assertStatus(201)
+        ->assertJson([
+            'message' => 'Your submission has been received.',
+            'data' => $data
+        ]);
 });

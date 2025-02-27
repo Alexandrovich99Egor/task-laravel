@@ -1,8 +1,11 @@
 <?php
 
-$urlApi = 'http://127.0.0.1:8000/api/v1/submits';
+//Тут я поменял вместо хард кода апи,взял роут,тест на валидейнш
 
-test('POST /api/submissions fails with invalid data field', function () use ($urlApi) {
+test('POST /api/submissions fails with invalid data field', function ()  {
+
+    $urlApi = route('submits.store');
+
     $data = [
         'name' => '',
         'email' => '222l111',
