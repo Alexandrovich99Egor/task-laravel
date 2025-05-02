@@ -7,21 +7,22 @@ import axios from "axios";
 
 export default function Form() {
     const hostName = window.location.hostname;
-    const apiUrl = 'http://127.0.0.1:8000/api/v1/submits';
+    const port = window.location.port;
+    const apiUrl = `http://${hostName}:${port}/api/v1/submits`;
+
     const [responseState, setResponse] = useState('Nothing');
-    const TESTINGDATA = {
-        name: 'Egor TEST1111111111111111',
+    const data = {
+        name: 'Egor',
         email: 'bbff@mail.ua',
         message: 'test',
     }
-    const ruquest = async () => {
+    const requestApi = async () => {
         try {
-            const response = await axios.post(apiUrl, TESTINGDATA, {
+            const response = await axios.post(apiUrl, data, {
                 headers: {
                     "Content-Type": "application/json",
                 },
             });
-            console.log(response)
             setResponse({
                 status: response.status,
                 colorStatus: response.status === 200 || 201 ? 'green' : 'red',
@@ -31,11 +32,7 @@ export default function Form() {
                 name: response?.data?.data?.name,
             });
         } catch (err) {
-            setResponse({
-                message: err.response.data.message,
-                status: err.response.status,
-                colorStatus: 'red',
-            })
+            console.log(err)
         }
 
     }
@@ -52,7 +49,7 @@ export default function Form() {
                         Make here request
                     </h2>
                     <div className="form__button">
-                        <Button action={ruquest} textButton={'Make Request!Lest do it'}></Button>
+                        <Button action={requestApi} textButton={'Make Request!Lest do it'}></Button>
                     </div>
 
                 </div>

@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Events\SubmissionEvent;
 use App\Http\Controllers\Controller;
-use App\Models\Submission;
 use Illuminate\Http\Request;
-use App\Jobs\ProcessSubmission;
+use App\Services\SubmitService;
 
 
 class SubmitApiController extends Controller
 {
+
+    public function __construct(private SubmitService $submitService) {}
     /**
      * Display a listing of the resource.
      */
@@ -32,23 +32,18 @@ class SubmitApiController extends Controller
      */
     public function store(Request $request)
     {
-        //Here we send response to client.
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
+        $validated = $request->validate([
+            'name' => 'required|string',
             'email' => 'required|email',
             'message' => 'required|string',
         ]);
 
-
-        ProcessSubmission::dispatch($validatedData);
-
-        event(new SubmissionEvent($validatedData));
+        $this->submitService->store($validated);
 
         return response()->json([
             'message' => 'Your submission has been received.',
-            'data' => $validatedData,
+            'data' => $validated,
         ], 201);
-
     }
 
     /**
